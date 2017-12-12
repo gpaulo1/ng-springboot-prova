@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet"
+	href="./bower_components/bootstrap-css-only/css/bootstrap.min.css" />
+</head>
+<body ng-app="myApp">
+
+	<div class="container" ng-controller="AppController">
+		<div class="page-header">
+			<h1>Cadastrar de clientes</h1>
+		</div>
+		<form ng-submit="addCliente(cNome, cSaldo)">
+			<div class="form-group">
+				<label for="exampleInputEmail1">Nome</label> <input type="text"
+					class="form-control" aria-describedby="emailHelp"
+					placeholder="Nome do cliente" ng-model="cNome">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Saldo</label> <input type="text"
+					class="form-control" placeholder="Saldo da conta" ng-model="cSaldo">
+			</div>
+			<button type="submit" class="btn btn-primary">Salvar</button>
+		</form>
+
+		<div class="page-header">
+			<h1>Lista de clientes</h1>
+		</div>
+		<div class="alert alert-info" role="alert"
+			ng-hide="clientes &amp;&amp; clientes.length > 0">Sem nenhum
+			cliente cadastrado ainda.</div>
+		<form class="form-horizontal" role="form" ng-submit="realizarSaque()">
+			<div class="form-group" ng-repeat="cliente in clientes">
+				<div class="checkbox col-xs-9">
+					<label> <input type="checkbox" ng-model="item.checked"
+						ng-change="selecionarClienteSaque(cliente)" /> {{cliente.nome}}
+					</label>
+				</div>
+				<div class="col-xs-3">
+					<button class="pull-right btn btn-danger" type="button"
+						title="Delete" ng-click="deleteCliente(cliente)">
+						<span class="glyphicon glyphicon-trash"></span>
+					</button>
+				</div>
+			</div>
+			<hr />
+			<div class="input-group">
+				<input type="text" class="form-control" ng-model="valorSaque"
+					placeholder="Selecione o cliente e informe o valor a ser sacado." />
+				<span class="input-group-btn">
+					<button class="btn btn-success" type="button"
+						ng-click="realizarSaque(valorSaque)" title="Realizar Saque">
+						<span>SACAR</span>
+					</button>
+				</span>
+			</div>
+		</form>
+		<br>
+		<div class="form-group" ng-repeat="cedula in clientes.saqueRealizado track by $index">
+			<div class="checkbox col-xs-9">
+				<ul>
+					<li>{{cedula}}</li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+	<script type="text/javascript"
+		src="./bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript"
+		src="./bower_components/angular-resource/angular-resource.min.js"></script>
+	<script type="text/javascript"
+		src="./bower_components/lodash/dist/lodash.min.js"></script>
+	<script type="text/javascript" src="./app/app.js"></script>
+	<script type="text/javascript" src="./app/controllers.js"></script>
+	<script type="text/javascript" src="./app/services.js"></script>
+</body>
+</html>
